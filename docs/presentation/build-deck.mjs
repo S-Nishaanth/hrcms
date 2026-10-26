@@ -1,7 +1,8 @@
 // Editable presentation content for the HRCMS project viva.
 // Run buildDeck(presentation) inside an Artifact Session presentation callback.
 import { createErBuilders } from './er-diagrams.mjs';
-export const slideCount = 18;
+import { createSqlBuilders, sqlSlideCount } from './sql-sections.mjs';
+export const slideCount = 16 + sqlSlideCount;
 export const theme = { green:'#1F4D3B', lime:'#E5EDBD', bg:'#FAFBF7', ink:'#243B2D', muted:'#60735E', light:'#E5EBDD', font:'Arial' };
 const ROOT='C:/Users/nisha/Documents/ChatGPT/DBMS';
 const SRC={schema:'database/01_schema.sql',logic:'database/02_logic.sql',api:'backend/src/routes.js; backend/src/admin.js; backend/src/auth.js',tests:'backend/test/integration.test.js; docs/VALIDATION.md',seed:'backend/scripts/seed.js',ui:'frontend/src/main.jsx; docs/screenshots/overview.png'};
@@ -127,4 +128,5 @@ const reviewBuilders=[
  reuse(20,headings.tests,'31 automated checks passed against a fresh real MySQL database.'),
  (p,n)=>{const s=base(p,headings.demo,n);retitle(s,headings.demo);table(s,['Step','Role','Demonstration'],[['1','Student','Show room and roommate, then raise a complaint.'],['2','Warden','Assign the issue to matching staff in A Block.'],['3','Assigned staff','Start work and resolve it with a repair remark.'],['4','Student','Rate the repair. Show CLOSED status and full history.'],['5','Warden / admin','Show occupancy, an invalid allotment and overdue reports.']],{y:176,h:350,widths:[95,245,812],size:24});text(s,'Documentation',66,562,1140,34,27,true,theme.green);text(s,'README.md   docs/API.md   database/README.md   docs/VALIDATION.md',66,606,1140,36,23,false,theme.muted);note(s,'Use arjun@student.edu, warden.a@hrcms.edu and vijay@hrcms.edu for an A101 Housekeeping demo. The seeded demo password is Hostel@123. Choose a category without another active complaint for that room. Use admin@hrcms.edu for administration and harish@student.edu to demonstrate rejection of a complaint from a student without a room. Start the local application before the review at http://127.0.0.1:5000. README documents setup and logins, API.md documents routes, database/README.md explains schema and transactions, and VALIDATION.md records the checks. GitHub source is private at https://github.com/S-Nishaanth/hrcms. The live database and .env credentials remain local.','README.md;docs/API.md;database/README.md;docs/VALIDATION.md');return s;},
 ];
+reviewBuilders.splice(8,2,...createSqlBuilders({base,retitle,text,code,note,headings}));
 export function buildDeck(presentation,{start=0,end=reviewBuilders.length}={}){presentation.theme.defaultFont=theme.font;for(let i=start;i<Math.min(end,reviewBuilders.length);i++)reviewBuilders[i](presentation,i+1);return {added:Math.min(end,reviewBuilders.length)-start,total:reviewBuilders.length};}

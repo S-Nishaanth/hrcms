@@ -23,6 +23,6 @@ Run with Node: `node docs/presentation/check-er.mjs`.
 
 ## 3. Exported diagram review
 
-All four diagram slides were rendered individually and inspected for connector routes, end-label placement, entity/attribute spelling, key labels, line intersections and text clipping. Selected attributes are explicitly identified as a subset of the full DDL. The other review topics and the 18-slide scope are preserved.
+All four diagram slides were rendered individually and inspected for connector routes, end-label placement, entity/attribute spelling, key labels, line intersections and text clipping. Selected attributes are explicitly identified as a subset of the full DDL. The ER diagrams remain on slides 2–5. The review retains the eleven requested topics; the deck now has 36 slides after expanding DDL for all tables and adding small DML samples.
 
 The final PowerPoint is checked for structural integrity, geometry and successful import by Artifact Tool. The diagrams remain editable native slide objects.
